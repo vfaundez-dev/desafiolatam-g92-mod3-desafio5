@@ -23,3 +23,23 @@ body {
     max-width: 1000px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
+
+.todo-header {
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #3a3a4c;
+}
+
+.todo-header h1 {
+    color: #e0e0f0;
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 0;
+    letter-spacing: 1px;
+}
+
+.todo-header i {
+    margin-right: 12px;
+    color: #6c6caa;
+}
