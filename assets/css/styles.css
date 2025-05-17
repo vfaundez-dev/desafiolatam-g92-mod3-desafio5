@@ -102,3 +102,72 @@ body {
     color: #4E71FF;
     font-weight: 700;
 }
+
+.table-dark {
+    background-color: #252538;
+    color: #e0e0f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-dark thead {
+    background-color: #2a2a3c;
+}
+
+.table-dark td, .table-dark th {
+    border-color: #3a3a4c;
+    padding: 12px 15px;
+}
+
+.table-dark tbody tr {
+    transition: background-color 0.2s;
+}
+
+.table-dark tbody tr:hover {
+    background-color: #2a2a3c;
+}
+
+.form-check-input {
+    background-color: #2a2a3c;
+    border-color: #5a5a7c;
+    width: 22px;
+    height: 22px;
+    transition: all 0.2s;
+}
+
+.form-check-input:hover {
+    background-color: #3a3a4c;
+    border-color: #5a5a7c;
+    color: #ffffff;
+    box-shadow: 0 0 0 0.2rem rgba(90, 90, 124, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: #5a5a7c;
+    border-color: #5a5a7c;
+}
+
+.btn-remove {
+    background-color: #d9534f; /* rojo anaranjado */
+    border: 1px solid #c9302c;
+    color: #fff;
+    width: 28px;
+    height: 24px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.btn-remove:hover {
+    background-color: #c9302c; /* más oscuro al pasar el mouse */
+    border-color: #ac2925;
+    color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba(201, 48, 44, 0.25);
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #9090a0;
+}
