@@ -4,6 +4,7 @@ const btnAdd = document.querySelector('.btn-add');
 const tableTodo = document.getElementById('tableTodo');
 const tbody = tableTodo.querySelector('tbody');
 const todoList = [];
+let lastTodoId = 0;
 
 // Agregar TODO a la lista
 btnAdd.addEventListener('click', event => {
@@ -17,7 +18,8 @@ btnAdd.addEventListener('click', event => {
 
     // Generar objeto
     const todoObj = {
-        id: todoList.length,
+        id: ++lastTodoId,
+        dataId: todo.length,
         name: todo,
         completed: false
     } 
@@ -28,6 +30,8 @@ btnAdd.addEventListener('click', event => {
     tbody.innerHTML += generateTemplateTodo(todoObj);
     // Limpiar input
     inputTodo.value = '';
+    // Actualizar contadores
+    updateDetails();
 
 });
 
@@ -50,7 +54,7 @@ tbody.addEventListener('click', (event) => {
 const generateTemplateTodo = (todo) => {
     return `
         <tr data-id="${todo.id}">
-            <td>${todo.id + 1}</td>
+            <td>${todo.id}</td>
             <td>${todo.name}</td>
             <td>
                 <div class="d-flex align-items-center">
@@ -66,15 +70,39 @@ const generateTemplateTodo = (todo) => {
     `;
 }
 
-const deleteTodo = (tr) => {
-    todoID = tr.dataset.id;
+const generateAllTodos = () => {
+    tbody.innerHTML = '';
+    todoList.forEach( todo => tbody.innerHTML += generateTemplateTodo(todo) );
+}
 
-    console.log(todoID);
+const deleteTodo = (tr) => {
+    const todoID = parseInt(tr.dataset.id);
+    // Busca el indice del todo si existe segun todoID
+    const todoIndex = todoList.findIndex( todo => todo.id === todoID );
+    if (todoIndex !== -1) { // -1 indica que no encontro el indice
+        todoList.splice(todoIndex, 1);
+        tr.remove();
+        generateAllTodos();
+        updateDetails();
+    }
 }
 
 const completedTodo = (tr, checkCompleted) => {
-    todoID = parseInt(tr.dataset.id);
-    const tdNameTodo = tr.querySelector('td:nth-child(2)');
-    todoList[todoID].completed = checkCompleted;
-    tdNameTodo.classList.toggle('completed');
+    const todoID = parseInt(tr.dataset.id);
+    // Busca el indice del todo si existe segun todoID
+    const todoIndex = todoList.findIndex( todo => todo.id === todoID );
+    if (todoIndex !== -1) { // -1 indica que no encontro el indice
+        const tdNameTodo = tr.querySelector('td:nth-child(2)');
+        todoList[todoIndex].completed = checkCompleted;
+        tdNameTodo.classList.toggle('completed');
+        updateDetails();
+    }
+}
+
+const updateDetails = () => {
+    const totalTodosSpan = document.getElementById('totalTodos');
+    const completedTodosSpan = document.getElementById('completedTodos');
+
+    totalTodosSpan.innerHTML = todoList.length;
+    completedTodosSpan.innerHTML = todoList.filter( todo => todo.completed ).length;
 }
