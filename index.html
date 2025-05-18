@@ -25,7 +25,7 @@
 
       <!-- Input Todo List -->
       <div class="input-group mb-4">
-        <input type="text" class="form-control" placeholder="Nueva tarea..." aria-label="Nueva tarea">
+        <input id="inputTodo" type="text" class="form-control" placeholder="Nueva tarea..." aria-label="Nueva tarea">
         <button class="btn btn-dark btn-add text-light" type="button">
           <i class="fas fa-plus me-1"></i> Agregar
         </button>
@@ -39,10 +39,10 @@
         <div class="col-md-3 mb-3 mb-md-0">
           <div class="details-section">
             <p>
-              Total: <span>5</span>
+              Total: <span id="totalTodos">0</span>
             </p>
             <p>
-              Realizados: <span>2</span>
+              Realizados: <span id="completedTodos">0</span>
             </p>
           </div>
         </div>
@@ -51,7 +51,7 @@
         <!-- Todo List Section -->
         <div class="col-md-9">
           <div class="table-responsive">
-            <table class="table table-dark">
+            <table id="tableTodo" class="table table-dark">
               <thead>
                 <tr>
                   <th scope="col">ID</th>
@@ -59,36 +59,7 @@
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Comprar víveres</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="form-check me-3">
-                        <input class="form-check-input" type="checkbox" value="" id="task1">
-                      </div>
-                      <button class="btn btn-remove">
-                        <i class="fas fa-times"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td class="completed">Llamar al médico</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="form-check me-3">
-                        <input class="form-check-input" type="checkbox" value="" id="task2" checked>
-                      </div>
-                      <button class="btn btn-remove">
-                        <i class="fas fa-times"></i>
-                      </button>
-                    </div>
-                  </td>
-              </tr>
-              </tbody>
+              <tbody></tbody>
             </table>
           </div>
         </div>
@@ -101,5 +72,7 @@
   </div>
   <!-- Bootstrap -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+  <!-- Script -->
+  <script src="./assets/js/main.js"></script>
 </body>
 </html>
