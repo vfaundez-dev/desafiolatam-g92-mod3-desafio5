@@ -167,7 +167,16 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(201, 48, 44, 0.25);
 }
 
-.completed {
-    text-decoration: line-through;
-    color: #9090a0;
+td.completed {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.completed::before {
+    font-family: "Font Awesome 6 Free";
+    font-size: 1.2rem;
+    content: "\f560";
+    font-weight: 600;
+    margin-right: 0.5rem;
+    color: #28a745;
 }
