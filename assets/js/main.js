@@ -36,11 +36,16 @@ const generateTemplateTodo = (todo) => {
     return `
         <tr data-id="${todo.id}">
             <td>${todo.id}</td>
-            <td>${todo.name}</td>
+            <td class="${todo.completed ? 'completed' : ''}">${todo.name}</td>
             <td>
                 <div class="d-flex align-items-center">
                     <div class="form-check me-3">
-                        <input class="form-check-input todo-completed" type="checkbox" id="task${todo.id}">
+                        <input
+                            id="task${todo.id}"
+                            class="form-check-input todo-completed"
+                            type="checkbox"
+                            ${todo.completed ? 'checked' : ''}
+                        />
                     </div>
                     <button class="btn btn-remove">
                         <i class="fas fa-times"></i>
@@ -51,10 +56,22 @@ const generateTemplateTodo = (todo) => {
     `;
 }
 
+/*-- Metodos Principales --*/
+
+// Actualizar contadores
+const updateDetails = () => {
+    const totalTodosSpan = document.getElementById('totalTodos');
+    const completedTodosSpan = document.getElementById('completedTodos');
+
+    totalTodosSpan.innerHTML = todoList.length;
+    completedTodosSpan.innerHTML = todoList.filter( todo => todo.completed ).length;
+}
+
 // Generar todos los Todos
 const generateAllTodos = () => {
     tbody.innerHTML = '';
     todoList.forEach( todo => tbody.innerHTML += generateTemplateTodo(todo) );
+    updateDetails();
 }
 
 // Ejecutar primer render
@@ -111,16 +128,6 @@ const completedTodo = (tr, checkCompleted) => {
         updateDetails();
     }
 }
-
-// Actualizar contadores
-const updateDetails = () => {
-    const totalTodosSpan = document.getElementById('totalTodos');
-    const completedTodosSpan = document.getElementById('completedTodos');
-
-    totalTodosSpan.innerHTML = todoList.length;
-    completedTodosSpan.innerHTML = todoList.filter( todo => todo.completed ).length;
-}
-
 
 /*--- Listeners ---*/
 
