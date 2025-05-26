@@ -3,38 +3,37 @@ const inputTodo = document.getElementById('inputTodo');
 const btnAdd = document.querySelector('.btn-add');
 const tableTodo = document.getElementById('tableTodo');
 const tbody = tableTodo.querySelector('tbody');
+// Asignar ID's correlativos en orden
+let lastCorrelativeID = 3;
 // Listado de TODOS iniciales
 const todoList = [
     {
         id: 1,
-        dataId: 1,
+        dataId: Date.now() + 1,
         name: 'Revisar que el codigo compile',
         completed: false
     },
     {
         id: 2,
-        dataId: 2,
+        dataId: Date.now() + 2,
         name: 'Terminar los desafios',
         completed: false
     },
     {
         id: 3,
-        dataId: 3,
+        dataId: Date.now() + 3,
         name: 'Corregir los bugs',
         completed: false
     }
 ];
 
-// Asignar ID's correlativos en orden
-let lastTodoId = 3;
 
-
-/*--- Generadores ---*/
+/*--- GENERADORES ---*/
 
 // Plantilla para todos
 const generateTemplateTodo = (todo) => {
     return `
-        <tr data-id="${todo.id}">
+        <tr data-id="${todo.dataId}">
             <td>${todo.id}</td>
             <td class="${todo.completed ? 'completed' : ''}">${todo.name}</td>
             <td>
@@ -56,7 +55,7 @@ const generateTemplateTodo = (todo) => {
     `;
 }
 
-/*-- Metodos Principales --*/
+/*-- METODOS PRINCIPALES --*/
 
 // Actualizar contadores
 const updateDetails = () => {
@@ -77,16 +76,18 @@ const generateAllTodos = () => {
 // Ejecutar primer render
 generateAllTodos();
 
+console.log(todoList)
 
-/*--- Metodos Principales ---*/
+
+/*--- METODOS DE EJECUCION ---*/
 
 // Metodo Agregar
 const addTodo = (todo) => {
 
     // Generar objeto
     const todoObj = {
-        id: ++lastTodoId,
-        dataId: todo.length,
+        id: ++lastCorrelativeID,
+        dataId: Date.now(),
         name: todo,
         completed: false
     }
@@ -105,28 +106,39 @@ const addTodo = (todo) => {
 // Metodo Eliminar
 const deleteTodo = (tr) => {
     const todoID = parseInt(tr.dataset.id);
-    // Busca el indice del todo si existe segun todoID
-    const todoIndex = todoList.findIndex( todo => todo.id === todoID );
-    if (todoIndex !== -1) { // -1 indica que no encontro el indice
-        todoList.splice(todoIndex, 1);
-        tr.remove();
-        generateAllTodos();
-        updateDetails();
+    const todoIndex = todoList.findIndex( todo => todo.dataId === todoID );
+    
+    // Verificamos si existe el todo
+    if (todoIndex === -1) { // -1 indica que no encontro el indice
+        alert('No se encontró el TODO a eliminar');
+        return;
     }
+
+    // Eliminar del array
+    todoList.splice(todoIndex, 1);
+    tr.remove();
+    generateAllTodos();
+    updateDetails();
+
 }
 
 // Metodo Completar
 const completedTodo = (tr, checkCompleted) => {
     const todoID = parseInt(tr.dataset.id);
     // Busca el indice del todo si existe segun todoID
-    const todoIndex = todoList.findIndex( todo => todo.id === todoID );
-    // Si existe el todo, lo actualiza
-    if (todoIndex !== -1) { // -1 indica que no encontro el indice
-        const tdNameTodo = tr.querySelector('td:nth-child(2)');
-        todoList[todoIndex].completed = checkCompleted;
-        tdNameTodo.classList.toggle('completed');
-        updateDetails();
+    const todoIndex = todoList.findIndex( todo => todo.dataId === todoID );
+
+    // Verificamos si existe el todo
+    if (todoIndex === -1) { // -1 indica que no encontro el indice
+        alert('No se encontró el TODO a eliminar');
+        return;
     }
+
+    const tdNameTodo = tr.querySelector('td:nth-child(2)'); // td:nth-child(2) accedemos al segundo td
+    todoList[todoIndex].completed = checkCompleted;
+    tdNameTodo.classList.toggle('completed');
+    updateDetails();
+
 }
 
 /*--- Listeners ---*/
